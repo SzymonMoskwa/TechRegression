@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using TechRegression.Data;
 using TechRegression.Models;
 
@@ -67,6 +68,26 @@ namespace TechRegression.Controllers
 
             ViewBag.Categories = new SelectList(_context.Categories, "Id", "Name");
             return View(model);
+        }
+
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id is null)
+            {
+                return NotFound();
+            }
+
+            var article = await _context.Articles
+                .Include(a => a.Category)
+                .Include(a => a.Comments)
+                .FirstOrDefaultAsync(m => m.Id == id);
+
+            if (article is null)
+            {
+                return NotFound();
+            }
+
+            return View(article);
         }
     }
 }
