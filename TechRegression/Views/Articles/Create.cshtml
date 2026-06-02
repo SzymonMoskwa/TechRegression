@@ -1,0 +1,42 @@
+﻿@model TechRegression.Models.ArticleViewModel
+
+@{
+    ViewData["Title"] = "Dodaj nowy artykuł";
+}
+
+<div class="admin-form-container">
+    <h2>Publikacja nowego artykułu</h2>
+
+    <form asp-action="Create" method="post" enctype="multipart/form-data">
+
+        <div class="form-group">
+            <label asp-for="Title">Tytuł:</label>
+            <input asp-for="Title" class="form-control" placeholder="Wpisz tytuł..." />
+            <span asp-validation-for="Title" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="CategoryId">Kategoria:</label>
+            <select asp-for="CategoryId" asp-items="ViewBag.Categories" class="form-control">
+                <option value="">-- Wybierz kategorię --</option>
+            </select>
+            <span asp-validation-for="CategoryId" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Content">Treść artykułu:</label>
+            <textarea asp-for="Content" rows="12" class="form-control" placeholder="..."></textarea>
+            <span asp-validation-for="Content" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="ImageFile">Zdjęcie wyróżniające (okładka):</label>
+            <input asp-for="ImageFile" type="file" accept="image/*" class="form-control-file" />
+            <span asp-validation-for="ImageFile" class="text-danger"></span>
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn-submit">Opublikuj artykuł</button>
+        </div>
+    </form>
+</div>
