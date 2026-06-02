@@ -16,7 +16,9 @@
     @if (!string.IsNullOrEmpty(Model.ImagePath))
     {
         <div class="article-cover">
-            <img src="@Model.ImagePath" alt="@Model.Title" />
+            <a href="@Model.ImagePath" target="_blank" title="Kliknij, aby otworzyć obraz w pełnej rozdzielczości">
+                <img src="@Model.ImagePath" alt="@Model.Title" />
+            </a>
         </div>
     }
 
@@ -28,6 +30,12 @@
 <hr class="section-divider" />
 
 <section class="comments-section">
+    @if (TempData["CommentMessage"] != null)
+    {
+        <div class="alert @(TempData["CommentStatus"]?.ToString() == "Success" ? "alert-success" : "alert-danger")">
+            @TempData["CommentMessage"]
+        </div>
+    }
     <h3>Dyskusja (@Model.Comments.Count)</h3>
 
     <div class="comment-form-container">

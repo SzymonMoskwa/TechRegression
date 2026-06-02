@@ -12,10 +12,18 @@
         <header class="site-navigation">
             <div class="nav-container">
                 <a class="nav-logo" asp-controller="Home" asp-action="Index">TechRegression</a>
+
                 <nav class="nav-links">
-                    <a asp-controller="Home" asp-action="Index">Strona Główna</a>
-                    <a asp-controller="Articles" asp-action="Create">Dodaj Artykuł</a>
-                    <a asp-controller="Categories" asp-action="Index">Kategorie</a>
+                    @if (Context.Session.GetString("AdminLoggedIn") == "true")
+                    {
+                        <a asp-controller="Articles" asp-action="Create">+ Artykuł</a>
+                        <a asp-controller="Categories" asp-action="Index">Kategorie</a>
+                        <a asp-controller="Admin" asp-action="Logout" class="logout-link">Wyloguj</a>
+                    }
+                    else
+                    {
+                        <a asp-controller="Admin" asp-action="Login">Panel Admina</a>
+                    }
                 </nav>
             </div>
         </header>

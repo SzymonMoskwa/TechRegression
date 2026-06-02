@@ -20,14 +20,25 @@ namespace TechRegression.Controllers
         {
             if (ModelState.IsValid)
             {
-                comment.CreatedAt = DateTime.Now;
+                try
+                {
+                    comment.CreatedAt = DateTime.Now;
+                    _context.Add(comment);
+                    await _context.SaveChangesAsync();
 
-                // zapis od bazy
-                _context.Add(comment);
-                await _context.SaveChangesAsync();
-
-                // przekierowanie z powrotem do artykułu
-                return RedirectToAction("Details", "Articles", new { id = comment.ArticleId });
+                    TempData["CommentStatus"] = "Success";
+                    TempData["CommentMessage"] = "Komentarz opublikowany.";
+                }
+                catch (Exception)
+                {
+                    TempData["CommentStatus"] = "Error";
+                    TempData["CommentMessage"] = "Wystąpił nieoczekiwany błąd.";
+                }
+            }
+            else
+            {
+                TempData["CommentStatus"] = "Error";
+                TempData["CommentMessage"] = "Nie udało się dodać komentarza. Sprawdź poprawność pól.";
             }
 
             return RedirectToAction("Details", "Articles", new { id = comment.ArticleId });

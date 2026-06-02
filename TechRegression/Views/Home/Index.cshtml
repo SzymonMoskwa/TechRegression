@@ -2,6 +2,11 @@
 
 @{
     ViewData["Title"] = "TechRegression - tech newsy";
+    var categories = Model.Where(a => a.Category != null)
+                          .Select(a => a.Category)
+                          .GroupBy(c => c.Id)
+                          .Select(g => g.First())
+                          .ToList();
 }
 
 <header class="main-hero">
@@ -13,15 +18,26 @@
     @if (!Model.Any())
     {
         <div class="no-articles">
-            <p>Dodaj pierwszy artykuł pod adresem <a href="/Articles/Create">/Articles/Create</a>!</p>
+            <p><i>Brak arykułów</i></p>
         </div>
     }
     else
     {
-        <div class="articles-grid">
+        @if (categories.Any())
+        {
+            <div class="filter-bar">
+                <button class="filter-btn active" data-category="all">Wszystkie</button>
+                @foreach (var cat in categories)
+                {
+                    <button class="filter-btn" data-category="@cat.Id">@cat.Name</button>
+                }
+            </div>
+        }
+
+        <div class="articles-grid" id="articlesGrid">
             @foreach (var article in Model)
             {
-                <article class="news-card">
+                <article class="news-card" data-cat-id="@article.CategoryId">
                     @if (!string.IsNullOrEmpty(article.ImagePath))
                     {
                         <div class="card-image-wrapper">
@@ -38,14 +54,7 @@
                         <h2 class="card-title">@article.Title</h2>
 
                         <p class="card-excerpt">
-                            @if (article.Content.Length > 200)
-                            {
-                                @(article.Content.Substring(0, 200) + "...")
-                            }
-                            else
-                            {
-                                @article.Content
-                            }
+                            @(article.Content.Length > 200 ? article.Content.Substring(0, 200) + "..." : article.Content)
                         </p>
 
                         <a href="/Articles/Details/@article.Id" class="read-more-btn">Czytaj dalej &rarr;</a>

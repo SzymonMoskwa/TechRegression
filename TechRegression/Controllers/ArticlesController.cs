@@ -54,7 +54,7 @@ namespace TechRegression.Controllers
                 {
                     Title = model.Title,
                     Content = model.Content,
-                    CategoryId = model.CategoryId,
+                    CategoryId = model.CategoryId.Value,
                     ImagePath = $"/uploads/articles/{uniqueFileName}",
                     CreatedAt = DateTime.Now
                 };
