@@ -13,7 +13,13 @@
             <div class="nav-container">
                 <a class="nav-logo" asp-controller="Home" asp-action="Index">TechRegression</a>
 
-                <nav class="nav-links">
+                <button class="menu-toggle" id="menuToggle" aria-label="Otwórz menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+
+                <nav class="nav-links" id="navLinks">
                     @if (Context.Session.GetString("AdminLoggedIn") == "true")
                     {
                         <a asp-controller="Articles" asp-action="Create">+ Artykuł</a>
@@ -39,6 +45,10 @@
             </div>
         </footer>
     </div>
+
+    <button id="backToTop" class="back-to-top" title="Przewiń w górę">&uarr;</button>
+
+    <div id="system-clock" class="terminal-clock">00:00</div>
 
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
