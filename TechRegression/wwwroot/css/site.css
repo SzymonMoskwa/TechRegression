@@ -56,7 +56,6 @@
 }
 
 
-
 /* --- Main CSS --- */
 
 * {
@@ -561,7 +560,7 @@ html, body {
     width: 68px;
     height: 68px;
     font-family: var(--font-heading);
-    font-size: 2rem;
+    font-size: 2.5rem;
     font-weight: bold;
     cursor: pointer;
     z-index: 9998;
@@ -719,6 +718,81 @@ html, body {
     border-color: #ef4444;
 }
 
+.search-form-cli {
+    display: flex;
+    align-items: center;
+    background-color: #050507;
+    border: 1px solid var(--border-color);
+    padding: 0.2rem 0.6rem;
+    margin-right: 1rem;
+    transition: border-color 0.2s ease;
+}
+
+    .search-form-cli:focus-within {
+        border-color: var(--accent-mono);
+    }
+
+.cli-prompt {
+    font-family: Consolas, monospace;
+    color: var(--accent-mono);
+    font-size: 0.9rem;
+    font-weight: bold;
+    margin-right: 0.5rem;
+    user-select: none;
+}
+
+.search-input-cli {
+    background: transparent;
+    border: none;
+    color: var(--text-primary);
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    outline: none;
+    width: 140px;
+    transition: width 0.3s ease;
+}
+
+    .search-input-cli:focus {
+        width: 200px;
+    }
+
+    .search-input-cli::placeholder {
+        color: #4b5563;
+        font-style: italic;
+    }
+
+.nav-links {
+    display: flex;
+    align-items: center;
+}
+
+.about-page .lead-text {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    margin-bottom: 2rem;
+}
+
+.about-section-title {
+    font-family: var(--font-heading);
+    color: var(--accent-mono);
+    margin: 2.5rem 0 1rem 0;
+    text-transform: uppercase;
+    font-size: 1.3rem;
+    letter-spacing: -0.5px;
+}
+
+.about-list {
+    list-style: square;
+    padding-left: 1.2rem;
+    color: var(--text-muted);
+    line-height: 1.8;
+    font-family: var(--font-body);
+}
+
+    .about-list li {
+        margin-bottom: 0.5rem;
+    }
+
 
 /* RWD - MEDIA QUERIES for narrow screens (mobile) */
 
@@ -814,6 +888,45 @@ html, body {
     }
 
     .back-to-top {
-        bottom: 15px;
+        bottom: 55px;
+        width: 48px;
+        height: 48px;
+        font-size: 1.8rem;
+    }
+
+    .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        right: 0;
+        width: 220px;
+        background-color: var(--bg-card);
+        border: 1px solid var(--border-color);
+        flex-direction: column;
+        padding: 1rem 0;
+        box-shadow: 0 10px 15px rgba(0,0,0,0.5);
+        z-index: 10000;
+        gap: 0;
+    }
+
+    .search-form-cli {
+        margin: 0.5rem 1rem;
+        width: calc(100% - 2rem);
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .search-input-cli {
+        flex: 1;
+        width: 100% !important;
+    }
+
+    .nav-links a {
+        margin-left: 0;
+        padding: 0.8rem 1.5rem;
+        width: 100%;
+        text-align: left;
+        border-bottom: 1px solid #1a1a22;
     }
 }

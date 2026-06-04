@@ -15,17 +15,32 @@ namespace TechRegression.Controllers
             _context = context;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString, int? categoryId)
         {
-            var articles = await _context.Articles
-                .Include(a => a.Category)
-                .OrderByDescending(a => a.CreatedAt)
-                .ToListAsync();
+            var articlesQuery = _context.Articles.Include(a => a.Category).AsQueryable();
 
+            // filtrowanie po wyszukiwarce
+            if (!string.IsNullOrWhiteSpace(searchString))
+            {
+                searchString = searchString.Trim();
+                articlesQuery = articlesQuery.Where(a =>
+                    a.Title.Contains(searchString) ||
+                    a.Content.Contains(searchString));
+
+                ViewData["CurrentFilter"] = searchString;
+            }
+
+            // filtrowanie po kategorii
+            if (categoryId.HasValue)
+            {
+                articlesQuery = articlesQuery.Where(a => a.CategoryId == categoryId.Value);
+            }
+
+            var articles = await articlesQuery.OrderByDescending(a => a.CreatedAt).ToListAsync();
             return View(articles);
         }
 
-        public IActionResult Privacy()
+        public IActionResult About()
         {
             return View();
         }

@@ -20,6 +20,13 @@
                 </button>
 
                 <nav class="nav-links" id="navLinks">
+                    <form asp-controller="Home" asp-action="Index" method="get" class="search-form-cli">
+                        <span class="cli-prompt">_ &gt;</span>
+                        <input type="text" name="searchString" value="@Context.Request.Query["searchString"]" placeholder="szukaj_wpisu..." class="search-input-cli" autocomplete="off" />
+                    </form>
+
+                    <a asp-controller="Home" asp-action="About">O nas</a>
+
                     @if (Context.Session.GetString("AdminLoggedIn") == "true")
                     {
                         <a asp-controller="Articles" asp-action="Create">+ Artykuł</a>
