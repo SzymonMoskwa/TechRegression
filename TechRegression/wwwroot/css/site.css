@@ -1,52 +1,61 @@
 /* --- Self-hosted Fonts --- */
 
+/* space-grotesk-regular - latin_latin-ext */
 @font-face {
+    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
     font-family: 'Space Grotesk';
     font-style: normal;
     font-weight: 400;
-    font-display: swap;
-    src: url('/fonts/space-grotesk-v22-latin-regular.woff2') format('woff2');
+    src: url('../fonts/space-grotesk-v22-latin_latin-ext-regular.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
 }
 
+/* space-grotesk-700 - latin_latin-ext */
 @font-face {
+    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
     font-family: 'Space Grotesk';
     font-style: normal;
     font-weight: 700;
-    font-display: swap;
-    src: url('/fonts/space-grotesk-v22-latin-700.woff2') format('woff2');
+    src: url('../fonts/space-grotesk-v22-latin_latin-ext-700.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
 }
 
+
+/* rubik-regular - latin_latin-ext */
 @font-face {
+    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
     font-family: 'Rubik';
     font-style: normal;
     font-weight: 400;
-    font-display: swap;
-    src: url('/fonts/rubik-v31-latin-regular.woff2') format('woff2');
+    src: url('../fonts/rubik-v31-latin_latin-ext-regular.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
 }
 
+/* rubik-italic - latin_latin-ext */
 @font-face {
-    font-family: 'Rubik';
-    font-style: normal;
-    font-weight: 700;
-    font-display: swap;
-    src: url('/fonts/rubik-v31-latin-700.woff2') format('woff2');
-}
-
-@font-face {
+    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
     font-family: 'Rubik';
     font-style: italic;
     font-weight: 400;
-    font-display: swap;
-    src: url('/fonts/rubik-v31-latin-italic.woff2') format('woff2');
+    src: url('../fonts/rubik-v31-latin_latin-ext-italic.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
 }
 
+/* rubik-700 - latin_latin-ext */
 @font-face {
+    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+    font-family: 'Rubik';
+    font-style: normal;
+    font-weight: 700;
+    src: url('../fonts/rubik-v31-latin_latin-ext-700.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+/* rubik-700italic - latin_latin-ext */
+@font-face {
+    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
     font-family: 'Rubik';
     font-style: italic;
     font-weight: 700;
-    font-display: swap;
-    src: url('/fonts/rubik-v31-latin-700italic.woff2') format('woff2');
+    src: url('../fonts/rubik-v31-latin_latin-ext-700italic.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
 }
+
+
 
 /* --- Main CSS --- */
 
@@ -595,6 +604,121 @@ html, body {
         background-color: var(--text-primary);
         transition: all 0.3s ease;
     }
+
+.admin-badge {
+    color: var(--accent-mono);
+    font-family: var(--font-heading);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 50vh;
+}
+
+.login-box {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    padding: 3rem;
+    width: 100%;
+    max-width: 450px;
+}
+
+    .login-box h2 {
+        font-family: var(--font-heading);
+        font-size: 1.8rem;
+        margin-bottom: 0.5rem;
+        text-transform: uppercase;
+    }
+
+.login-subtitle {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin-bottom: 2rem;
+}
+
+.btn-block {
+    width: 100%;
+    margin-top: 1rem;
+}
+
+/* admin panel - categories */
+.admin-panel-container {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    padding: 2.5rem;
+    margin-top: 2rem;
+}
+
+.admin-header-block {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    border-bottom: 1px dashed var(--border-color);
+    padding-bottom: 1.5rem;
+}
+
+    .admin-header-block h2 {
+        font-family: var(--font-heading);
+        text-transform: uppercase;
+        letter-spacing: -0.5px;
+    }
+
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: var(--font-body);
+}
+
+    .admin-table th {
+        font-family: var(--font-heading);
+        text-transform: uppercase;
+        font-size: 0.85rem;
+        color: var(--text-muted);
+        padding: 1rem;
+        border-bottom: 2px solid var(--border-color);
+        text-align: left;
+    }
+
+    .admin-table td {
+        padding: 1rem;
+        border-bottom: 1px solid var(--border-color);
+        vertical-align: middle;
+    }
+
+.category-name-cell {
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.table-link-btn {
+    font-family: var(--font-heading);
+    color: var(--text-muted);
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    font-weight: bold;
+    margin-left: 1rem;
+    border: 1px solid var(--border-color);
+    padding: 0.3rem 0.7rem;
+    transition: all 0.2s ease;
+}
+
+    .table-link-btn:hover {
+        color: var(--accent-mono);
+        border-color: var(--accent-mono);
+    }
+
+.delete-danger:hover {
+    color: #ef4444;
+    border-color: #ef4444;
+}
+
 
 /* RWD - MEDIA QUERIES for narrow screens (mobile) */
 

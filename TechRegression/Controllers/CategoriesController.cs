@@ -22,30 +22,20 @@ namespace TechRegression.Controllers
         // GET: Categories
         public async Task<IActionResult> Index()
         {
+            if (HttpContext.Session.GetString("AdminLoggedIn") != "true")
+            {
+                return RedirectToAction("Login", "Admin");
+            }
             return View(await _context.Categories.ToListAsync());
-        }
-
-        // GET: Categories/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var category = await _context.Categories
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (category == null)
-            {
-                return NotFound();
-            }
-
-            return View(category);
         }
 
         // GET: Categories/Create
         public IActionResult Create()
         {
+            if (HttpContext.Session.GetString("AdminLoggedIn") != "true")
+            {
+                return RedirectToAction("Login", "Admin");
+            }
             return View();
         }
 
@@ -56,6 +46,11 @@ namespace TechRegression.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name")] Category category)
         {
+            if (HttpContext.Session.GetString("AdminLoggedIn") != "true")
+            {
+                return RedirectToAction("Login", "Admin");
+            }
+
             if (ModelState.IsValid)
             {
                 _context.Add(category);
@@ -68,6 +63,11 @@ namespace TechRegression.Controllers
         // GET: Categories/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            if (HttpContext.Session.GetString("AdminLoggedIn") != "true")
+            {
+                return RedirectToAction("Login", "Admin");
+            }
+
             if (id == null)
             {
                 return NotFound();
@@ -88,6 +88,11 @@ namespace TechRegression.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name")] Category category)
         {
+            if (HttpContext.Session.GetString("AdminLoggedIn") != "true")
+            {
+                return RedirectToAction("Login", "Admin");
+            }
+
             if (id != category.Id)
             {
                 return NotFound();
@@ -119,6 +124,11 @@ namespace TechRegression.Controllers
         // GET: Categories/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
+            if (HttpContext.Session.GetString("AdminLoggedIn") != "true")
+            {
+                return RedirectToAction("Login", "Admin");
+            }
+
             if (id == null)
             {
                 return NotFound();
@@ -139,6 +149,11 @@ namespace TechRegression.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            if (HttpContext.Session.GetString("AdminLoggedIn") != "true")
+            {
+                return RedirectToAction("Login", "Admin");
+            }
+
             var category = await _context.Categories.FindAsync(id);
             if (category != null)
             {

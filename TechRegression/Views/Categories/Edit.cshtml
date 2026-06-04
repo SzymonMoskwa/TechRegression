@@ -1,34 +1,34 @@
 ﻿@model TechRegression.Models.Category
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Edycja Kategorii";
 }
 
-<h1>Edit</h1>
+<div class="login-container">
+    <div class="login-box">
+        <h2>Edycja Kategorii</h2>
+        <p class="login-subtitle">Modyfikujesz kategorię: @Model.Name</p>
 
-<h4>Category</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
+        <form asp-action="Edit" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
+
             <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
+                <label asp-for="Name">Nowa nazwa kategorii:</label>
+                <input asp-for="Name" class="form-control" autocomplete="off" required />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+
+            <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+                <button type="submit" class="btn-submit" style="flex: 1;">Aktualizuj</button>
+                <a asp-action="Index" class="btn-submit" style="background: transparent; border: 1px solid var(--border-color); color: var(--text-muted); text-align: center; text-decoration: none; flex: 1;">Anuluj</a>
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

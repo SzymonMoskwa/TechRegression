@@ -20,6 +20,10 @@ namespace TechRegression.Controllers
         // GET: /Articles/Create
         public IActionResult Create()
         {
+            if (HttpContext.Session.GetString("AdminLoggedIn") != "true")
+            {
+                return RedirectToAction("Login", "Admin");
+            }
             // przekazanie listy kategorii do tagu <select> w html
             ViewBag.Categories = new SelectList(_context.Categories, "Id", "Name");
             return View();
@@ -30,6 +34,11 @@ namespace TechRegression.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(ArticleViewModel model)
         {
+            if (HttpContext.Session.GetString("AdminLoggedIn") != "true")
+            {
+                return RedirectToAction("Login", "Admin");
+            }
+
             if (ModelState.IsValid)
             {
                 string uniqueFileName = null;
