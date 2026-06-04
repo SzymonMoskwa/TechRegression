@@ -159,7 +159,7 @@ html, body {
         font-family: var(--font-body);
         font-size: 1.1rem;
         color: var(--text-muted);
-        max-width: 600px;
+        /*max-width: 600px;*/
     }
 
 .articles-grid {
@@ -225,6 +225,7 @@ html, body {
     font-weight: 600;
     font-size: 0.75rem;
     letter-spacing: 0.5px;
+    text-transform: uppercase;
 }
 
 .card-title {
@@ -791,6 +792,94 @@ html, body {
 
     .about-list li {
         margin-bottom: 0.5rem;
+    }
+
+select.form-control option {
+    background-color: var(--bg-card);
+    color: var(--text-primary);
+}
+
+/* --- Zarz¹dzanie Artyku³ami (Edit / Delete) --- */
+.edit-article-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.delete-article-container {
+    max-width: 600px;
+    margin: 0 auto;
+    border-color: #ef4444;
+}
+
+.danger-header {
+    border-bottom-color: #ef4444 !important;
+}
+
+    .danger-header h2 {
+        color: #ef4444;
+    }
+
+.delete-warning-text {
+    margin-bottom: 2rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+}
+
+.delete-preview-box {
+    background-color: var(--bg-main);
+    padding: 1rem;
+    border: 1px solid var(--border-color);
+    margin-top: 1rem;
+    color: var(--text-primary);
+}
+
+.form-actions-group {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.btn-cancel {
+    line-height: 2.2rem;
+    height: 100%;
+    margin-left: 0 !important;
+}
+
+.btn-danger-submit {
+    background-color: #ef4444 !important;
+    color: #fff !important;
+}
+
+.news-card-link {
+    text-decoration: none;
+    color: inherit; 
+    display: block;
+}
+
+    .news-card-link:hover .news-card {
+        border-color: var(--text-muted);
+    }
+
+    .news-card-link:hover .card-image-wrapper img {
+        filter: grayscale(0%);
+    }
+
+    .news-card-link:hover .read-more-btn {
+        color: var(--accent-mono);
+    }
+
+
+.admin-actions-inline {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+    margin-left: 1.5rem;
+    margin-right: 1.5rem;
+}
+
+    .admin-actions-inline .table-link-btn {
+        margin-left: 0 !important;
     }
 
 

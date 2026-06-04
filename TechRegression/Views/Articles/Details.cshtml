@@ -11,6 +11,13 @@
             <time datetime="@Model.CreatedAt.ToString("yyyy-MM-dd")">@Model.CreatedAt.ToString("dd.MM.yyyy HH:mm")</time>
         </div>
         <h1>@Model.Title</h1>
+        @if (Context.Session.GetString("AdminLoggedIn") == "true")
+        {
+            <div class="admin-actions-inline" style="margin: 1rem 0 2rem 0; display: flex; gap: 0.5rem;">
+                <a asp-controller="Articles" asp-action="Edit" asp-route-id="@Model.Id" class="table-link-btn">Edytuj wpis</a>
+                <a asp-controller="Articles" asp-action="Delete" asp-route-id="@Model.Id" class="table-link-btn delete-danger">Usuń wpis</a>
+            </div>
+        }
     </header>
 
     @if (!string.IsNullOrEmpty(Model.ImagePath))

@@ -98,5 +98,94 @@ namespace TechRegression.Controllers
 
             return View(article);
         }
+
+        // --- EDYCJA ARTYKUŁU (GET) ---
+        public async Task<IActionResult> Edit(int? id)
+        {
+            // FIX: HttpContext.Session zamiast Context.Session
+            if (HttpContext.Session.GetString("AdminLoggedIn") != "true") return RedirectToAction("Login", "Admin");
+            if (id == null) return NotFound();
+
+            var article = await _context.Articles.FindAsync(id);
+            if (article == null) return NotFound();
+
+            // Przekazanie listy kategorii dokładnie tak samo jak w Create
+            ViewBag.Categories = new SelectList(_context.Categories, "Id", "Name", article.CategoryId);
+            return View(article);
+        }
+
+        // --- EDYCJA ARTYKUŁU (POST) ---
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Content,CategoryId,ImagePath,CreatedAt")] Article article)
+        {
+            // FIX: HttpContext.Session zamiast Context.Session
+            if (HttpContext.Session.GetString("AdminLoggedIn") != "true") return RedirectToAction("Login", "Admin");
+            if (id != article.Id) return NotFound();
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    // Aktualizujemy cały obiekt w bazie (zachowując oryginalną ścieżkę ImagePath i datę CreatedAt)
+                    _context.Update(article);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!_context.Articles.Any(e => e.Id == article.Id)) return NotFound();
+                    else throw;
+                }
+                // Po udanej edycji wracamy do szczegółów tego artykułu
+                return RedirectToAction("Details", new { id = article.Id });
+            }
+
+            ViewBag.Categories = new SelectList(_context.Categories, "Id", "Name", article.CategoryId);
+            return View(article);
+        }
+
+        // --- USUWANIE ARTYKUŁU (GET) ---
+        public async Task<IActionResult> Delete(int? id)
+        {
+            // FIX: HttpContext.Session zamiast Context.Session
+            if (HttpContext.Session.GetString("AdminLoggedIn") != "true") return RedirectToAction("Login", "Admin");
+            if (id == null) return NotFound();
+
+            var article = await _context.Articles
+                .Include(a => a.Category)
+                .FirstOrDefaultAsync(m => m.Id == id);
+
+            if (article == null) return NotFound();
+
+            return View(article);
+        }
+
+        // --- USUWANIE ARTYKUŁU (POST) ---
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            // FIX: HttpContext.Session zamiast Context.Session
+            if (HttpContext.Session.GetString("AdminLoggedIn") != "true") return RedirectToAction("Login", "Admin");
+
+            var article = await _context.Articles.FindAsync(id);
+            if (article != null)
+            {
+                // OPCJONALNIE: Jeśli chcesz usuwać plik zdjęcia z dysku serwera przy kasowaniu wpisu:
+                if (!string.IsNullOrEmpty(article.ImagePath))
+                {
+                    var absolutePath = Path.Combine(_webHostEnvironment.WebRootPath, article.ImagePath.TrimStart('/'));
+                    if (System.IO.File.Exists(absolutePath))
+                    {
+                        System.IO.File.Delete(absolutePath);
+                    }
+                }
+
+                _context.Articles.Remove(article);
+                await _context.SaveChangesAsync();
+            }
+
+            return RedirectToAction("Index", "Home");
+        }
     }
 }

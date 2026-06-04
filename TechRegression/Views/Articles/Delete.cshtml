@@ -1,0 +1,25 @@
+﻿@model TechRegression.Models.Article
+@{
+    ViewData["Title"] = "Usuń artykuł";
+}
+
+<div class="admin-panel-container delete-article-container">
+    <div class="admin-header-block danger-header">
+        <h2>Usuwanie Artykułu // ID: @Model.Id</h2>
+    </div>
+
+    <div class="delete-warning-text">
+        <p>Czy na pewno chcesz permanentnie usunąć poniższy artykuł z bazy danych? Tej operacji nie można cofnąć.</p>
+        <div class="delete-preview-box">
+            <strong>Tytuł:</strong> @Model.Title <br />
+            <strong>Kategoria:</strong> @Model.Category?.Name <br />
+            <strong>Data utworzenia:</strong> @Model.CreatedAt.ToString("yyyy-MM-dd HH:mm")
+        </div>
+    </div>
+
+    <form asp-action="Delete" method="post" class="form-actions-group">
+        <input type="hidden" asp-for="Id" />
+        <button type="submit" class="btn-submit btn-danger-submit">Usuń</button>
+        <a asp-action="Details" asp-route-id="@Model.Id" class="table-link-btn btn-cancel">Anuluj</a>
+    </form>
+</div>
