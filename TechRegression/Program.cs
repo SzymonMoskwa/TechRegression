@@ -1,4 +1,6 @@
 using Microsoft.EntityFrameworkCore;
+using TechRegression.Data;
+using TechRegression.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -37,5 +39,42 @@ app.UseSession();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+// --- AUTOMATYCZNA INICJALIZACJA BAZY (SEED DATA) ---
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    try
+    {
+        var context = services.GetRequiredService<ApplicationDbContext>();
+
+        context.Database.Migrate();
+
+        if (!context.Categories.Any())
+        {
+            var defaultCategory = new Category { Name = "Hardware" };
+            context.Categories.Add(defaultCategory);
+            context.SaveChanges();
+
+            if (!context.Articles.Any())
+            {
+                context.Articles.Add(new Article
+                {
+                    Title = "Witaj w TechRegression",
+                    Content = "To jest automatycznie wygenerowany artyku³ testowy systemu. Jeœli to widzisz, baza danych zosta³a zainicjalizowana poprawnie.",
+                    CategoryId = defaultCategory.Id,
+                    ImagePath = "",
+                    CreatedAt = DateTime.Now
+                });
+                context.SaveChanges();
+            }
+        }
+    }
+    catch (Exception ex)
+    {
+        var logger = services.GetRequiredService<ILogger<Program>>();
+        logger.LogError(ex, "Wyst¹pi³ b³¹d podczas inicjalizacji (seeding) bazy danych.");
+    }
+}
 
 app.Run();

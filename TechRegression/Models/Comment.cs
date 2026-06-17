@@ -10,6 +10,7 @@ namespace TechRegression.Models
 
         [Required]
         [Display(Name = "Autor")]
+        [StringLength(40, ErrorMessage = "Nick nie może przekraczać 40 znaków.")]
         public string Author { get; set; }
 
         [Required]

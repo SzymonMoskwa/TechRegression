@@ -10,6 +10,7 @@ namespace TechRegression.Models
 
         [Required]
         [Display(Name = "Tytuł")]
+        [StringLength(150, ErrorMessage = "Tytuł artykułu nie może przekraczać 150 znaków.")]
         public string Title { get; set; }
 
         [Required]
