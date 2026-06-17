@@ -75,8 +75,21 @@
             {
                 <div class="comment-card">
                     <div class="comment-meta">
-                        <span class="comment-author">@comment.Author</span>
-                        <time>@comment.CreatedAt.ToString("dd.MM.yyyy HH:mm")</time>
+                        <div>
+                            <span class="comment-author">@comment.Author</span>
+							<span>(@comment.CreatedAt.ToString("dd.MM.yyyy HH:mm"))</span>
+                        </div>
+
+                        @if (Context.Session.GetString("AdminLoggedIn") == "true")
+                        {
+                            <form asp-controller="Articles" asp-action="DeleteComment" method="post" onsubmit="return confirm('Usunąć ten komentarz?');" style="margin: 0;">
+                                <input type="hidden" name="commentId" value="@comment.Id" />
+                                <input type="hidden" name="articleId" value="@Model.Id" />
+                                <button type="submit" class="table-link-btn delete-danger" style="padding: 0.1rem 0.4rem; font-size: 0.75rem; cursor: pointer; background: transparent;">
+                                    USUŃ [X]
+                                </button>
+                            </form>
+                        }
                     </div>
                     <p class="comment-text">@comment.Content</p>
                 </div>

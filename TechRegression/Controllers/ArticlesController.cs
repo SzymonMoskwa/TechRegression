@@ -79,6 +79,7 @@ namespace TechRegression.Controllers
             return View(model);
         }
 
+        // strona artykułu
         public async Task<IActionResult> Details(int? id)
         {
             if (id is null)
@@ -181,6 +182,24 @@ namespace TechRegression.Controllers
             }
 
             return RedirectToAction("Index", "Home");
+        }
+
+        // admin: usuwanie komentarzy
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteComment(int commentId, int articleId)
+        {
+            if (HttpContext.Session.GetString("AdminLoggedIn") != "true")
+                return RedirectToAction("Login", "Admin");
+
+            var comment = await _context.Comments.FindAsync(commentId);
+            if (comment is not null)
+            {
+                _context.Comments.Remove(comment);
+                await _context.SaveChangesAsync();
+            }
+
+            return RedirectToAction("Details", new { id = articleId });
         }
     }
 }
