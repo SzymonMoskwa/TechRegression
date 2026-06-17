@@ -38,14 +38,14 @@
             @foreach (var article in Model)
             {
                 <article class="news-card" data-cat-id="@article.CategoryId">
-                    @if (!string.IsNullOrEmpty(article.ImagePath))
-                    {
-                        <div class="card-image-wrapper">
-                            <img src="@article.ImagePath" alt="@article.Title" loading="lazy" />
-                        </div>
-                    }
-
                     <a asp-controller="Articles" asp-action="Details" asp-route-id="@article.Id" class="news-card-link">
+                        @if (!string.IsNullOrEmpty(article.ImagePath))
+                        {
+                            <div class="card-image-wrapper">
+                                <img src="@article.ImagePath" alt="@article.Title" loading="lazy" />
+                            </div>
+                        }
+
                         <div class="card-content">
                             <div class="card-meta">
                                 <span class="category-badge">@article.Category?.Name</span>

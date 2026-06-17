@@ -102,7 +102,6 @@ namespace TechRegression.Controllers
         // --- EDYCJA ARTYKUŁU (GET) ---
         public async Task<IActionResult> Edit(int? id)
         {
-            // FIX: HttpContext.Session zamiast Context.Session
             if (HttpContext.Session.GetString("AdminLoggedIn") != "true") return RedirectToAction("Login", "Admin");
             if (id == null) return NotFound();
 
@@ -119,7 +118,6 @@ namespace TechRegression.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Content,CategoryId,ImagePath,CreatedAt")] Article article)
         {
-            // FIX: HttpContext.Session zamiast Context.Session
             if (HttpContext.Session.GetString("AdminLoggedIn") != "true") return RedirectToAction("Login", "Admin");
             if (id != article.Id) return NotFound();
 
@@ -147,7 +145,6 @@ namespace TechRegression.Controllers
         // --- USUWANIE ARTYKUŁU (GET) ---
         public async Task<IActionResult> Delete(int? id)
         {
-            // FIX: HttpContext.Session zamiast Context.Session
             if (HttpContext.Session.GetString("AdminLoggedIn") != "true") return RedirectToAction("Login", "Admin");
             if (id == null) return NotFound();
 
@@ -165,13 +162,11 @@ namespace TechRegression.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            // FIX: HttpContext.Session zamiast Context.Session
             if (HttpContext.Session.GetString("AdminLoggedIn") != "true") return RedirectToAction("Login", "Admin");
 
             var article = await _context.Articles.FindAsync(id);
             if (article != null)
             {
-                // OPCJONALNIE: Jeśli chcesz usuwać plik zdjęcia z dysku serwera przy kasowaniu wpisu:
                 if (!string.IsNullOrEmpty(article.ImagePath))
                 {
                     var absolutePath = Path.Combine(_webHostEnvironment.WebRootPath, article.ImagePath.TrimStart('/'));
