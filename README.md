@@ -24,6 +24,8 @@ System pozwala na publikację artykułów, kategoryzację treści, dynamiczne fi
 * **Style:** CSS3 (flexbox, grid, RWD)
 * **Skrypty:** vanilla JavaScript (filtrowanie, przycisk back-to-top)
 
+---
+
 ## Funkcjonalność
 * **Publiczny feed wiadomości:** Dynamiczna siatka artykułów z filtrowaniem oraz wyszukiwaniem.
 * **System komentarzy:** Możliwość dyskutowania pod artykułami przez użytkowników.
