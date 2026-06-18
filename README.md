@@ -1,6 +1,9 @@
 # TechRegression
 
-TechRegression to aplikacja webowa typu 
+> Najnowsze wieści ze świata technologii, które sprawiają, że chcesz powrócić do epoki brązu
+
+TechRegression to aplikacja webowa typu CMS/blog stworzona w architekturze MVC.  
+System pozwala na publikację artykułów, kategoryzację treści, dynamiczne filtrowanie, wyszukiwanie oraz moderację treści.
 
 ## Architektura
 
