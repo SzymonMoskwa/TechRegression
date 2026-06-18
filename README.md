@@ -7,6 +7,8 @@ System pozwala na publikację artykułów, kategoryzację treści, dynamiczne fi
 
 [Wiki &ndash; dokumentacja i instrukcja](../../wiki)
 
+---
+
 ## Architektura
 
 ### Backend
@@ -29,6 +31,8 @@ System pozwala na publikację artykułów, kategoryzację treści, dynamiczne fi
 * **CRUD artykułów:** Tworzenie, edytowanie, usuwanie wpisów wraz z uploadem obrazów.
 * **Zarządzanie kategoriami:** Dodawanie, edytowanie, usuwanie kategorii artykułów.
 * **Moderacja komentarzy:** Możliwość usuwania komentarzy użytkowników przez administratorów.
+
+---
 
 ## Instrukcja uruchomienia lokalnego
 
