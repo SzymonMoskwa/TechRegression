@@ -5,7 +5,7 @@
 TechRegression to aplikacja webowa typu CMS/blog stworzona w architekturze MVC.  
 System pozwala na publikację artykułów, kategoryzację treści, dynamiczne filtrowanie, wyszukiwanie oraz moderację treści.
 
-[Wiki &ndash dokumentacja i instrukcja](../../wiki)
+[Wiki &ndash; dokumentacja i instrukcja](../../wiki)
 
 ## Architektura
 
