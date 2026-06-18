@@ -24,8 +24,16 @@
                     <tr>
                         <td class="category-name-cell">@item.Name</td>
                         <td style="text-align: right;">
-                            <a asp-action="Edit" asp-route-id="@item.Id" class="table-link-btn">Edytuj</a>
-                            <a asp-action="Delete" asp-route-id="@item.Id" class="table-link-btn delete-danger">Usuń</a>
+                            @if (item.Name != "Inne")
+                            {
+
+                                <a asp-action="Edit" asp-route-id="@item.Id" class="table-link-btn">Edytuj</a>
+                                <a asp-action="Delete" asp-route-id="@item.Id" class="table-link-btn delete-danger">Usuń</a>
+                            }
+                            else
+                            {
+                                <span style="color: #666; font-style: italic; font-size: 0.85rem;">[Wymagana systemowo]</span>
+                            }
                         </td>
                     </tr>
                 }

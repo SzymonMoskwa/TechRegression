@@ -60,7 +60,7 @@ namespace TechRegression.Controllers
             return View(category);
         }
 
-        // GET: Categories/Edit/5
+        // GET: Categories/Edit/
         public async Task<IActionResult> Edit(int? id)
         {
             if (HttpContext.Session.GetString("AdminLoggedIn") != "true")
@@ -81,7 +81,7 @@ namespace TechRegression.Controllers
             return View(category);
         }
 
-        // POST: Categories/Edit/5
+        // POST: Categories/Edit/
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -121,7 +121,7 @@ namespace TechRegression.Controllers
             return View(category);
         }
 
-        // GET: Categories/Delete/5
+        // GET: Categories/Delete/
         public async Task<IActionResult> Delete(int? id)
         {
             if (HttpContext.Session.GetString("AdminLoggedIn") != "true")
@@ -144,7 +144,7 @@ namespace TechRegression.Controllers
             return View(category);
         }
 
-        // POST: Categories/Delete/5
+        // POST: Categories/Delete/
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -154,10 +154,30 @@ namespace TechRegression.Controllers
                 return RedirectToAction("Login", "Admin");
             }
 
-            var category = await _context.Categories.FindAsync(id);
-            if (category != null)
+            var defaultCategory = await _context.Categories.FirstOrDefaultAsync(c => c.Name == "Inne");
+
+            if (defaultCategory == null)
             {
-                _context.Categories.Remove(category);
+                defaultCategory = new Category { Name = "Inne" };
+                _context.Categories.Add(defaultCategory);
+                await _context.SaveChangesAsync();
+            }
+
+            if (id == defaultCategory.Id)
+            {
+                return BadRequest("Błąd systemu: Kategoria 'Inne' jest integralną częścią systemu i nie może zostać usunięta.");
+            }
+
+            var orphanArticles = await _context.Articles.Where(a => a.CategoryId == id).ToListAsync();
+            foreach (var article in orphanArticles)
+            {
+                article.CategoryId = defaultCategory.Id;
+            }
+
+            var categoryToDelete = await _context.Categories.FindAsync(id);
+            if (categoryToDelete != null)
+            {
+                _context.Categories.Remove(categoryToDelete);
             }
 
             await _context.SaveChangesAsync();

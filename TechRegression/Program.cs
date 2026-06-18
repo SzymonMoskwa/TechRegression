@@ -52,7 +52,7 @@ using (var scope = app.Services.CreateScope())
 
         if (!context.Categories.Any())
         {
-            var defaultCategory = new Category { Name = "Hardware" };
+            var defaultCategory = new Category { Name = "Inne" };
             context.Categories.Add(defaultCategory);
             context.SaveChanges();
 
